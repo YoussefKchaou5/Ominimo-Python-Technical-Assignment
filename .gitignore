@@ -38,6 +38,3 @@ venv.bak/
 .pydevproject
 .settings/
 *.orig
-input.txt
-inputs.txt
-output.txt
