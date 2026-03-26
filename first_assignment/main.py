@@ -41,7 +41,8 @@ def validate_and_report(prices: Dict[str, int]) -> Tuple[bool, Dict[str, List[Di
         parsed = parse_price_key(key)
         
         #sanity check for unrecognized keys
-        if parsed["product"] is None:
+        if parsed["product"] is None or parsed["variant"] is None or parsed["deductible"] is None :
+            print(f"Warning: Unrecognized price key format '{key}'. Skipping validation for this key.")
             continue
         
         price = prices[key]
@@ -314,7 +315,6 @@ def read_prices_from_file(filename: str) -> Dict[str, int]:
                 key, value = line.split(":")[0].strip("\""), line.split(":")[1]
             prices[key.strip()] = int(value.strip())
     return prices
-
 
 def write_output_to_file(filename: str, corrected_prices: Dict[str, int], explanation: str, iterations: int) -> None:
     with open(filename, "w") as f:
